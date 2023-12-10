@@ -19,8 +19,7 @@ import {
 import { getAllBlogs } from "../redux/blog/action";
 
 const Home = () => {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTcxYTgxNmMzZTFiY2VjYTJjMzg1NzAiLCJ1c2VybmFtZSI6InJpc2hhdiIsImlhdCI6MTcwMTk1MTIxM30.NWPIqFxQ_Nch6Vvfn6gd8w1XmG_rzE4UZZx-zP9R_mI";
+  const { token, user } = useSelector((store) => store.authReducer);
   const { blogs } = useSelector((store) => store.blogReducer);
   const dispatch = useDispatch();
 
@@ -28,10 +27,8 @@ const Home = () => {
     dispatch(getAllBlogs(token));
   }, []);
 
-  console.log(blogs.length);
 
-  return (
-    <Container>
+  return(<Container>
       <Heading>Home</Heading>
 
       <Container>
@@ -83,6 +80,7 @@ const Home = () => {
             );
           })}
       </Container>
+      
     </Container>
   );
 };

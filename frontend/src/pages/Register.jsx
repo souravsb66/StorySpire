@@ -22,7 +22,6 @@ const Register = () => {
   const [userData, setUserData] = useState(initialData);
   const { token } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUserData((prev) => {
@@ -36,11 +35,10 @@ const Register = () => {
   const handleSubmit = (e) => {
     dispatch(register(userData));
     setUserData(initialData);
-    navigate("/login");
   };
 
   if(token) {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"/"} />;
   }
   return (
     <Container>
