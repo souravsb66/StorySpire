@@ -8,6 +8,7 @@ import {
   FormControl,
   FormLabel,
   Button,
+  useToast
 } from "@chakra-ui/react";
 import { register } from "../redux/auth/action";
 
@@ -23,6 +24,8 @@ const Register = () => {
   const { token } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
 
+  const toast = useToast();
+
   const handleChange = (e) => {
     setUserData((prev) => {
       return {
@@ -33,7 +36,7 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
-    dispatch(register(userData));
+    dispatch(register(userData,toast));
     setUserData(initialData);
   };
 

@@ -1,40 +1,56 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, Container, Button } from "@chakra-ui/react";
+import {
+  Link as ChakraLink,
+  Flex,
+  Spacer,
+  Button,
+  Heading,
+  Image,
+  useToast,
+} from "@chakra-ui/react";
 import { logoutUser } from "../redux/auth/action";
+import { LogoB } from "../assets";
 
 const Navbar = () => {
   const { token } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUser(toast));
   };
 
   return (
-    <Container>
+    <Flex p={3} pr={5} boxShadow="lg" bg="white">
       <ChakraLink as={ReactRouterLink} to="/">
-        Home
+        <Image src={LogoB} width={130} />
       </ChakraLink>
-      {!token && (
-        <ChakraLink as={ReactRouterLink} to="/login">
-          Login
-        </ChakraLink>
-      )}
-      {!token && (
-        <ChakraLink as={ReactRouterLink} to="/register">
-          Register
-        </ChakraLink>
-      )}
-      {token && (
-        <ChakraLink as={ReactRouterLink} to="/register">
-          <Button colorScheme="blue" onClick={handleLogout}>
-            Logout
-          </Button>
-        </ChakraLink>
-      )}
-    </Container>
+      <Flex w='100%' justifyContent='flex-end' >
+        {!token && (
+          <ChakraLink as={ReactRouterLink} to="/login" mr={10}>
+            <Button colorScheme="blue" size="sm">
+              Login
+            </Button>
+          </ChakraLink>
+        )}
+        {!token && (
+          <ChakraLink as={ReactRouterLink} to="/register">
+            <Button colorScheme="blue" size="sm">
+              Register
+            </Button>
+          </ChakraLink>
+        )}
+        {token && (
+          <ChakraLink as={ReactRouterLink} to="/register">
+            <Button colorScheme="blue" size="sm" onClick={handleLogout}>
+              Logout
+            </Button>
+          </ChakraLink>
+        )}
+      </Flex>
+    </Flex>
   );
 };
 

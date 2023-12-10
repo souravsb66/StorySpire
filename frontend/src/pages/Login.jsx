@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import {
   FormControl,
   FormLabel,
   Button,
+  useToast
 } from "@chakra-ui/react";
 import { loginUser } from "../redux/auth/action";
 
@@ -21,6 +22,9 @@ const Home = () => {
   const { token } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
 
+  const toast = useToast();
+  const toastIdRef = useRef();
+
   const handleChange = (e) => {
     setUserData((prev) => {
       return {
@@ -32,7 +36,7 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     // console.log(userData);
-    dispatch(loginUser(userData));
+    dispatch(loginUser(userData, toast));
   };
 
   if (token) {

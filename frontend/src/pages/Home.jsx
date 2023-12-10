@@ -1,22 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Input,
-  Container,
-  Heading,
-  Card,
-  CardHeader,
-  Flex,
-  Avatar,
-  Box,
-  Text,
-  IconButton,
-  CardBody,
-  Image,
-  CardFooter,
-  Button
-} from "@chakra-ui/react";
+import { Container, Heading, Button, Flex } from "@chakra-ui/react";
 import { getAllBlogs } from "../redux/blog/action";
+import BlogCard from "../components/BlogCard";
 
 const Home = () => {
   const { token, user } = useSelector((store) => store.authReducer);
@@ -27,60 +13,21 @@ const Home = () => {
     dispatch(getAllBlogs(token));
   }, []);
 
+  return (
+    <Container mt={5}>
 
-  return(<Container>
-      <Heading>Home</Heading>
+      <Container>
+        <Flex>
+
+        </Flex>
+      </Container>
 
       <Container>
         {blogs.length > 0 &&
           blogs.map((ele) => {
-            return (
-              <Card maxW="md">
-                <CardHeader>
-                  <Flex spacing="4">
-                    <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                      <Avatar src={ele.avatar} />
-
-                      <Box>
-                        <Heading size="sm">{ele.username}</Heading>
-                      </Box>
-                    </Flex>
-                    {/* <IconButton
-                      variant="ghost"
-                      colorScheme="gray"
-                      aria-label="See menu"
-                      icon={<BsThreeDotsVertical />}
-                    /> */}
-                  </Flex>
-                </CardHeader>
-                <CardBody>
-                  <Text>{ele.content}</Text>
-                </CardBody>
-
-                <CardFooter
-                  justify="space-between"
-                  flexWrap="wrap"
-                  sx={{
-                    "& > button": {
-                      minW: "136px",
-                    },
-                  }}
-                >
-                  <Button flex="1" variant="ghost" >
-                    Like
-                  </Button>
-                  <Button flex="1" variant="ghost" >
-                    Comment
-                  </Button>
-                  <Button flex="1" variant="ghost" >
-                    Share
-                  </Button>
-                </CardFooter>
-              </Card>
-            );
+            return <BlogCard props={ele} key={ele.id} />;
           })}
       </Container>
-      
     </Container>
   );
 };
