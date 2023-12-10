@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const key = process.env.SecretKey;
 
 const auth = (req,res,next) => {
 
@@ -6,7 +7,7 @@ const auth = (req,res,next) => {
 
     try {
         if(token) {
-            jwt.verify(token, "puppy", (err, decoded) => {
+            jwt.verify(token, key, (err, decoded) => {
                 if(decoded) {
                     const {username, userId} = decoded;
                     req.body.username = username;
