@@ -4,7 +4,6 @@ import { reducer as blogReducer } from "./blog/reducer";
 import { thunk } from "redux-thunk";
 
 export const baseURL = process.env.REACT_APP_BASE_URL;
-// export const baseURL = "http://localhost:7701";
 
 const rootReducer = combineReducers({
     authReducer,
