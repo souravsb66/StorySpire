@@ -44,7 +44,7 @@ const Register = () => {
     return <Navigate to={"/"} />;
   }
   return (
-    <Container>
+    <Container mt={5}>
       <Heading size="md">Register User</Heading>
 
       <FormControl isRequired>
@@ -85,7 +85,7 @@ const Register = () => {
           onChange={handleChange}
         />
 
-        <Button colorScheme="blue" onClick={handleSubmit}>
+        <Button colorScheme="blue" onClick={handleSubmit} size='md' mt={5}>
           Register
         </Button>
       </FormControl>

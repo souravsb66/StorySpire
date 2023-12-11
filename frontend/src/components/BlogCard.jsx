@@ -47,12 +47,12 @@ const BlogCard = ({ props }) => {
           <GridItem>
             <Flex direction="column" rowGap={1} >
               {user.username == props.username && (
-                <Button backgroundColor="#ee6031" color="white" size="xs">
+                <Button backgroundColor="#6979f8" color="white" size="xs">
                   Edit
                 </Button>
               )}
               {user.username == props.username && (
-                <Button backgroundColor="#d83f98" color="white" size="xs">
+                <Button backgroundColor="#f86969" color="white" size="xs">
                   Delete
                 </Button>
               )}

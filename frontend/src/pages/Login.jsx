@@ -43,7 +43,7 @@ const Home = () => {
     return <Navigate to={"/"} />;
   }
   return (
-    <Container>
+    <Container mt={5}>
       <Heading size="md">Login</Heading>
 
       <FormControl isRequired>
@@ -66,7 +66,7 @@ const Home = () => {
           onChange={handleChange}
         />
 
-        <Button colorScheme="blue" onClick={handleSubmit}>
+        <Button colorScheme="blue" onClick={handleSubmit} size='md' mt={5}>
           Login
         </Button>
       </FormControl>
