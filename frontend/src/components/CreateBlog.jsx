@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useSelector, useReducer } from "react-redux";
-import { Button, Text, Textarea, Flex, Input, Select } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Text, Textarea, Flex, Input, Select, useToast } from "@chakra-ui/react";
+import { postNewBlog } from "../redux/blog/action";
 
 const CreateBlog = ({ closeModal }) => {
   const initialBlogData = {
@@ -9,6 +10,8 @@ const CreateBlog = ({ closeModal }) => {
     category: "",
   };
   const { user } = useSelector((store) => store.authReducer);
+  const dispatch = useDispatch();
+  const toast = useToast();
 
   const [blogData, setBlogData] = useState(initialBlogData);
 
@@ -28,7 +31,7 @@ const CreateBlog = ({ closeModal }) => {
       ...blogData,
       date,
     };
-    console.log(postData);
+    dispatch(postNewBlog(postData, toast))
     closeModal();
     setBlogData(initialBlogData);
   };

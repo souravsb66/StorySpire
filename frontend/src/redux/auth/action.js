@@ -1,6 +1,7 @@
 import axios from "axios";
 import { CREATE_USER_FAILURE, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, LOGIN_USER_SUCCESS, LOGOUT_USER_SUCCESS } from "./actionType"
 import { baseURL } from "../store";
+import Cookies from "js-cookie";
 
 export const register = (payload, toast) => (dispatch) => {
     dispatch({type: CREATE_USER_REQUEST});
@@ -12,6 +13,7 @@ export const register = (payload, toast) => (dispatch) => {
             user: res.data.user
         }
         
+        Cookies.set('token', res.data.token);
         toast({
             title: 'Registration Succesful.',
             status: 'success',
@@ -44,6 +46,7 @@ export const loginUser = (payload, toast) => (dispatch) => {
             token: res.data.token,
             user: res.data.user
         }
+        Cookies.set('token', res.data.token);
         // alert("Login Succesful");
         toast({
             title: 'Login Succesful.',
@@ -69,12 +72,27 @@ export const loginUser = (payload, toast) => (dispatch) => {
 
 export const logoutUser = (toast) => (dispatch) => {
 
-    toast({
-        title: 'Logout Succesful.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'bottom-right'
+    const token = Cookies.get("token");
+    axios({
+        method: "GET",
+        url: `${baseURL}/users/logout`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
     })
-    dispatch({type: LOGOUT_USER_SUCCESS});
+    .then((res) => {
+        Cookies.remove("token");
+        toast({
+            title: 'Logout Succesful.',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            position: 'bottom-right'
+        })
+        dispatch({type: LOGOUT_USER_SUCCESS});
+    })
+    .catch((err) => {
+        dispatch({type: CREATE_USER_FAILURE});
+    })
 }
