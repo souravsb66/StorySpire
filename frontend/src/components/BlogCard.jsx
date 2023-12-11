@@ -24,7 +24,7 @@ const BlogCard = ({ props }) => {
   const { user } = useSelector((store) => store.authReducer);
 
   return (
-    <Card maxW="md" boxShadow="dark-lg" cursor="pointer" mb={5}>
+    <Card maxW="md" boxShadow="dark-lg" cursor="pointer" mb={5} textAlign='left'>
       <CardHeader>
         <Grid templateColumns="1fr 3fr 1fr" gap={5}>
           <GridItem >
@@ -62,6 +62,7 @@ const BlogCard = ({ props }) => {
       </CardHeader>
 
       <CardBody>
+        <Heading as='h4' size='md' mb={2}>{props.title}</Heading>
         <Text>{props.content}</Text>
       </CardBody>
 

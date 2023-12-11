@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 
 const token = Cookies.get("token");
 
-export const getAllBlogs = (token) => (dispatch) => {
+export const getAllBlogs = (token, query) => (dispatch) => {
   dispatch({ type: GET_ALL_BLOGS_REQUEST });
   axios({
     method: "GET",
@@ -21,6 +21,7 @@ export const getAllBlogs = (token) => (dispatch) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    params: query
   })
     .then((res) => {
       // console.log(res);

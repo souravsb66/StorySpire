@@ -2,18 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
-  Heading,
   Button,
-  ButtonGroup,
   Flex,
   Grid,
-  Spacer,
   Box,
   Input,
   InputGroup,
   InputLeftElement,
   Select,
-  useDisclosure
 } from "@chakra-ui/react";
 import { getAllBlogs } from "../redux/blog/action";
 import BlogCard from "../components/BlogCard";
@@ -29,6 +25,9 @@ const Home = () => {
   const dispatch = useDispatch();
  
   const [isModalOpen, setisModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [order, setOrder] = useState("");
 
   const openModal = () => {
     setisModalOpen(true);
@@ -38,9 +37,26 @@ const Home = () => {
     setisModalOpen(false);
   } 
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  }
+
+  const handleOrder = (e) => {
+    setOrder(e.target.value);
+  }
+
   useEffect(() => {
-    dispatch(getAllBlogs(token));
-  }, []);
+    let query = {
+      search,
+      category,
+      order
+    }
+    dispatch(getAllBlogs(token, query));
+  }, [search, category, order]);
 
   return (
     <Container mt={5} maxW="xxl">
@@ -52,12 +68,12 @@ const Home = () => {
                 <InputLeftElement pointerEvents="none">
                   <IoSearch fontSize="26px" />
                 </InputLeftElement>
-                <Input type="search" placeholder="Search Blogs" />
+                <Input type="search" placeholder="Search Blogs" value={search} onChange={handleSearch}/>
               </InputGroup>
             </Box>
 
             <Box>
-              <Select placeholder="Filter By Category">
+              <Select placeholder="Filter By Category" value={category} onChange={handleCategory}>
                 <option value="Business">Business</option>
                 <option value="Tech">Tech</option>
                 <option value="Lifestyle">Lifestyle</option>
@@ -66,7 +82,7 @@ const Home = () => {
             </Box>
 
             <Box>
-              <Select placeholder="Sort By Date">
+              <Select placeholder="Sort By Date" value={order} onChange={handleOrder}>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
               </Select>

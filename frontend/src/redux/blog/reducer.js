@@ -26,7 +26,7 @@ export const reducer = (state = initalState, { type, payload }) => {
         ...state,
         isLoading: false,
         isError: false,
-        blogs: [...payload].reverse(),
+        blogs: [...payload],
       };
     case POST_BLOG_REQUEST:
       return { ...state, crudLoading: true };
