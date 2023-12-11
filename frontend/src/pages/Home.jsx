@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
@@ -6,22 +6,37 @@ import {
   Button,
   ButtonGroup,
   Flex,
+  Grid,
   Spacer,
   Box,
   Input,
   InputGroup,
   InputLeftElement,
   Select,
+  useDisclosure
 } from "@chakra-ui/react";
 import { getAllBlogs } from "../redux/blog/action";
 import BlogCard from "../components/BlogCard";
 import { IoSearch } from "react-icons/io5";
 import { BsPencilSquare } from "react-icons/bs";
+import CreateBlog from "../components/CreateBlog";
+import Modal from "../components/cutom/Modal";
 
 const Home = () => {
+  
   const { token, user } = useSelector((store) => store.authReducer);
   const { blogs } = useSelector((store) => store.blogReducer);
   const dispatch = useDispatch();
+ 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsOpen(false);
+  } 
 
   useEffect(() => {
     dispatch(getAllBlogs(token));
@@ -58,19 +73,21 @@ const Home = () => {
             </Box>
           </Flex>
           <Flex>
-              <Button backgroundColor="#6979f8" color="white" leftIcon={<BsPencilSquare />}>
+              <Button backgroundColor="#6979f8" color="white" leftIcon={<BsPencilSquare />} onClick={openModal}>
                 Create Blog
               </Button>
+
+              <Modal isOpen={isOpen} closeModal={closeModal} children={<CreateBlog />} />
           </Flex>
         </Flex>
       </Container>
 
-      <Container mt={5} >
+      <Grid mt={5} templateColumns='repeat(3, 1fr)' gap={10} p={5}>
         {blogs.length > 0 &&
           blogs.map((ele) => {
             return <BlogCard props={ele} key={ele.id} />;
           })}
-      </Container>
+      </Grid>
     </Container>
   );
 };
