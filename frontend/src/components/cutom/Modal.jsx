@@ -16,10 +16,10 @@ import {
 import { IoClose } from "react-icons/io5";
 import styled from "styled-components";
 
-const Modal = ({ isOpen, closeModal, children }) => {
+const Modal = ({ isModalOpen, closeModal, children }) => {
   return (
-    <Backdrop isOpen={isOpen}>
-      <ModalContainer open={isOpen}>
+    <Backdrop isModalOpen={isModalOpen}>
+      <ModalContainer open={isModalOpen}>
         <CloseButton
           onClick={closeModal}
         >
@@ -40,7 +40,7 @@ const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.40);
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.isModalOpen ? "flex" : "none")};
   align-items: center;
   justify-content: center;
   z-index: 1000;

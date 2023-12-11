@@ -28,14 +28,14 @@ const Home = () => {
   const { blogs } = useSelector((store) => store.blogReducer);
   const dispatch = useDispatch();
  
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setisModalOpen] = useState(false);
 
   const openModal = () => {
-    setIsOpen(true);
+    setisModalOpen(true);
   }
 
   const closeModal = () => {
-    setIsOpen(false);
+    setisModalOpen(false);
   } 
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const Home = () => {
                 Create Blog
               </Button>
 
-              <Modal isOpen={isOpen} closeModal={closeModal} children={<CreateBlog />} />
+              <Modal isModalOpen={isModalOpen} closeModal={closeModal} children={<CreateBlog closeModal={closeModal} />} />
           </Flex>
         </Flex>
       </Container>
