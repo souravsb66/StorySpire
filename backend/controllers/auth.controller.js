@@ -2,6 +2,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
+const BlacklistModel = require("../models/blacklist.model");
 const key = process.env.SecretKey;
 
 exports.registerUser = async (req,res) => {
@@ -29,7 +30,7 @@ exports.registerUser = async (req,res) => {
 
                     await user.save();
                     const registeredUser = await UserModel.findOne({email});
-                    const token = jwt.sign({userId: registeredUser._id, username: registeredUser.username}, key);
+                    const token = jwt.sign({userId: registeredUser._id, username, avatar}, key);
                     res.status(200).json({message: "New user registered!", token, user});
                 }
             })
@@ -51,8 +52,8 @@ exports.loginUser = async (req,res) => {
         bcrypt.compare(password, user.password, (err, result) => {
             if(result) {
                 
-                let {_id, username} = user;
-                const token = jwt.sign({userId: _id, username}, key);
+                let {_id, username, avatar} = user;
+                const token = jwt.sign({userId: _id, username, avatar}, key);
                 res.status(200).json({message: "Login successful", token: token, user: user});
             }
             else {
@@ -66,21 +67,21 @@ exports.loginUser = async (req,res) => {
     }
 }
 
-// exports.logoutUser = async (req,res) => {
+exports.logoutUser = async (req,res) => {
 
-//     try {
-//         const token = req.headers.authorization.split(" ")[1];
+    try {
+        const token = req.headers.authorization.split(" ")[1];
     
-//         if(token) {
-//             const blacklistToken = new BlacklistModel({ token });
-//             await blacklistToken.save();
-//             res.status(200).json({message: "Logged out successfully"});
-//         }
-//         else {
-//             res.status(400).json({message: "Logout failed!"});
-//         }
-//     }
-//     catch(err) {
-//         res.status(400).json({message: "Something went wrong", error: err.message});
-//     }
-// }
+        if(token) {
+            const blacklistToken = new BlacklistModel({ token });
+            await blacklistToken.save();
+            res.status(200).json({message: "Logged out successfully"});
+        }
+        else {
+            res.status(400).json({message: "Logout failed!"});
+        }
+    }
+    catch(err) {
+        res.status(400).json({message: "Something went wrong", error: err.message});
+    }
+}

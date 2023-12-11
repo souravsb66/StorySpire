@@ -10,6 +10,9 @@ const blogSchema = mongoose.Schema({
     title: {
         type: String
     },
+    avatar: {
+        type: String
+    },
     content: {
         type: String
     },
