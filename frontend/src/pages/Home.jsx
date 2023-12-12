@@ -20,7 +20,7 @@ import Modal from "../components/cutom/Modal";
 
 const Home = () => {
   
-  const { token, user } = useSelector((store) => store.authReducer);
+  const { token } = useSelector((store) => store.authReducer);
   const { blogs } = useSelector((store) => store.blogReducer);
   const dispatch = useDispatch();
  

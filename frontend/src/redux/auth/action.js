@@ -41,7 +41,6 @@ export const loginUser = (payload, toast) => (dispatch) => {
     dispatch({type: CREATE_USER_REQUEST});
     axios.post(`${baseURL}/users/login`, payload)
     .then((res) => {
-        console.log(res);
         const userData = {
             token: res.data.token,
             user: res.data.user

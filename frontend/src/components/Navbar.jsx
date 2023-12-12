@@ -4,10 +4,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import {
   Link as ChakraLink,
   Flex,
-  Spacer,
   Button,
-  ButtonGroup,
-  Heading,
   Image,
   Text,
   useToast,
@@ -68,7 +65,7 @@ const Navbar = () => {
 
         {token && (
           <ChakraLink as={ReactRouterLink} to="/register">
-            <Image src={user.avatar} width={35} ml={5} onClick={onOpen} />
+            <Image src={user.avatar} width={35} ml={5} onClick={onOpen} borderRadius='50%'  />
           </ChakraLink>
         )}
 

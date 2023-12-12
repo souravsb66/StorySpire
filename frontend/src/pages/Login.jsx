@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const toast = useToast();
-  const toastIdRef = useRef();
+  // const toastIdRef = useRef();
 
   const handleChange = (e) => {
     setUserData((prev) => {

@@ -1,35 +1,37 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
-  Input,
-  Container,
   Heading,
   Card,
   CardHeader,
   Flex,
-  Avatar,
-  Box,
   Text,
-  IconButton,
   CardBody,
   Image,
-  CardFooter,
   Button,
-  ButtonGroup,
   Grid,
   GridItem,
+  useToast
 } from "@chakra-ui/react";
+import { deleteBlog } from "../redux/blog/action";
 
 const BlogCard = ({ props }) => {
-  const { user } = useSelector((store) => store.authReducer);
 
+  const { user } = useSelector((store) => store.authReducer);
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const handleDelete = () => {
+    dispatch(deleteBlog(props._id, toast)); 
+  }
+  
   return (
     <Card maxW="md" boxShadow="dark-lg" cursor="pointer" mb={5} textAlign='left'>
       <CardHeader>
         <Grid templateColumns="1fr 3fr 1fr" gap={5}>
           <GridItem >
             <Flex justifyContent="center" alignItems="center" height="100%">
-              <Image src={props.avatar} width={50} height={50} />
+              <Image src={props.avatar} width={50} height={50} borderRadius='50%' objectFit='contain' />
             </Flex>
           </GridItem>
           <GridItem>
@@ -46,13 +48,13 @@ const BlogCard = ({ props }) => {
 
           <GridItem>
             <Flex direction="column" rowGap={1} >
-              {user.username == props.username && (
+              {user.username === props.username && (
                 <Button backgroundColor="#6979f8" color="white" size="xs">
                   Edit
                 </Button>
               )}
-              {user.username == props.username && (
-                <Button backgroundColor="#f86969" color="white" size="xs">
+              {user.username === props.username && (
+                <Button backgroundColor="#f86969" color="white" size="xs" onClick={handleDelete}>
                   Delete
                 </Button>
               )}

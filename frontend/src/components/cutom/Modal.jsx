@@ -1,18 +1,4 @@
 import React from "react";
-import {
-  Container,
-  Heading,
-  Button,
-  ButtonGroup,
-  Text,
-  Flex,
-  Spacer,
-  Box,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Select,
-} from "@chakra-ui/react";
 import { IoClose } from "react-icons/io5";
 import styled from "styled-components";
 

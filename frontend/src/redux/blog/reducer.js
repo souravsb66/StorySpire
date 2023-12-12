@@ -1,4 +1,5 @@
 import {
+  DELETE_BLOG_SUCCESS,
   GET_ALL_BLOGS_FAILURE,
   GET_ALL_BLOGS_REQUEST,
   GET_ALL_BLOGS_SUCCESS,
@@ -33,7 +34,10 @@ export const reducer = (state = initalState, { type, payload }) => {
     case POST_BLOG_FAILURE:
       return { ...state, crudLoading: false, crudError: true };
     case POST_BLOG_SUCCESS:
-        return {...state, crudLoading: false, crudError: false, blogs: [payload, ...state.blogs]}
+        return {...state, crudLoading: false, crudError: false, blogs: [payload, ...state.blogs]};
+    case DELETE_BLOG_SUCCESS:
+        let updatedData = state.blogs.filter((ele) => ele._id !== payload);
+        return {...state, crudLoading: false, crudError: false, blogs: [...updatedData]};
     default:
       return { ...state };
   }
