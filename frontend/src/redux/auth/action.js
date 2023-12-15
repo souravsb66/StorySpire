@@ -36,7 +36,6 @@ export const register = (payload, toast) => (dispatch) => {
 }
 
 export const loginUser = (payload, toast) => (dispatch) => {
-    // console.log(payload);
 
     dispatch({type: CREATE_USER_REQUEST});
     axios.post(`${baseURL}/users/login`, payload)
